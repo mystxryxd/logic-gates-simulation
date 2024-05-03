@@ -5,8 +5,6 @@ from scripts.gates import And
 import pygame
 import sys
 
-pygame.init()
-
 
 class Game:
     def __init__(self) -> None:

@@ -1,5 +1,10 @@
 from pygame import Vector2, Color, Surface, Rect
 from pygame.constants import *
+import pygame
+
+pygame.init()
+pygame.font.init()
+pygame.display.init()
 
 GAME_TITLE = "Logic Gates"
 
@@ -28,4 +33,4 @@ GATE_SIZE = Vector2(GATE_LENGTH, GATE_WIDTH)
 INPUT = "INPUT"
 OUTPUT = "OUTPUT"
 
-TRY_CONNECT = USEREVENT
+JETBRAINS_MONO = pygame.font.SysFont("JetBrainMono", 20)

@@ -1,7 +1,6 @@
-from .gate import Gate
-from .constants import *
-from .port import InputPort, OutputPort
-import pygame
+from ..gate import Gate
+from ..constants import *
+from ..port import InputPort, OutputPort
 
 
 class And(Gate):

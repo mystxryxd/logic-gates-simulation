@@ -22,6 +22,10 @@ class Gate:
 
         self.is_held = False
 
+    def render_name(self, screen: Surface):
+        text = JETBRAINS_MONO.render(self.name, False, Color("WHITE"))
+        screen.blit(text, text.get_rect(center=self.position))
+
     def update_ports(self, input: Input):
         for input_port in self.input_ports:
             input_port.update(input)
@@ -60,3 +64,4 @@ class Gate:
         )
 
         self.render_ports(screen)
+        self.render_name(screen)
