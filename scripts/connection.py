@@ -1,32 +1,48 @@
-import pygame
 from .input import Input, MouseButton
 from .constants import *
 from .utils import *
 
+import pygame
+
 
 class Connection:
-    def __init__(self, node) -> None:
-        self.node = node
-        self.port = None
+    def __init__(self, game, connector) -> None:
+        self.game = game
+
+        self.connector = connector
         self.connected = False
 
-        self.start_position = node.connector.position
-        self.end_position = node.position
+        self.source = connector.pin
+        self.destination = None
+
+        self.start_position = connector.position
+        self.end_position = connector.pin.position
+
+    def create_connection(self, destination):
+        destination.connection = self
+
+        self.destination = destination
+        self.connected = True
 
     def update(self, input: Input):
         if not self.connected:
             mouse_position = input.mouse_position()
 
             if input.just_pressed(MouseButton.LEFT):
-                for gate in self.node.game.gates:
-                    for input_port in (
-                        gate.input_ports if self.node.is_input() else gate.output_ports
-                    ):
-                        if not input_port.connection and point_in_circle(
-                            mouse_position, input_port.position, PORT_RADIUS
+                if self.connector.is_node_connector():
+                    for gate in self.game.gates:
+                        for input_port in gate.input_ports:
+                            if not input_port.connection and point_in_circle(
+                                mouse_position, input_port.position, PORT_RADIUS
+                            ):
+                                self.create_connection(input_port)
+
+                elif self.connector.is_port_connector():
+                    for node in self.game.nodes:
+                        if not node.is_input() and point_in_circle(
+                            mouse_position, node.connector_position, CONNECTOR_RADIUS
                         ):
-                            input_port.connection = self
-                            self.connected = True
+                            self.create_connection(node)
 
             self.end_position = mouse_position
 
@@ -36,4 +52,4 @@ class Connection:
         )
 
     def destroy(self):
-        self.node.connection = None
+        self.source = None

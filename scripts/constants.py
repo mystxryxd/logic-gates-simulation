@@ -26,11 +26,11 @@ CONNECTOR_COLOR = Color(4, 4, 4)
 PORT_COLOR = Color(4, 4, 4)
 PORT_RADIUS = 5
 
-GATE_LENGTH = 50
-GATE_WIDTH = 40
+GATE_LENGTH = 70
+GATE_WIDTH = 50
 GATE_SIZE = Vector2(GATE_LENGTH, GATE_WIDTH)
 
 INPUT = "INPUT"
 OUTPUT = "OUTPUT"
 
-JETBRAINS_MONO = pygame.font.SysFont("JetBrainMono", 20)
+JETBRAINS_MONO = pygame.font.SysFont("Helvetica", 25)

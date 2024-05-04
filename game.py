@@ -22,7 +22,7 @@ class Game:
     def create_gates(self):
         center = SCREEN_SIZE / 2
 
-        self.gates.append(And(center))
+        self.gates.append(And(self, center))
 
     def create_input_nodes(self):
         center = SCREEN_SIZE / 2

@@ -10,9 +10,12 @@ import pygame
 class Gate:
     def __init__(
         self,
-        name: str,
+        name,
+        game,
         position: Vector2,
     ) -> None:
+        self.game = game
+
         self.name = name or __name__
         self.position = position
         self.rect = Rect(position, GATE_SIZE)

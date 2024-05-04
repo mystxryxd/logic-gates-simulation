@@ -1,9 +1,7 @@
 from .input import Input, MouseButton
-from .connection import Connection
-from .connector import Connector
+from .connector import NodeConnector
 from .constants import *
 from .utils import *
-from typing import List
 
 import pygame
 
@@ -16,45 +14,27 @@ class Node:
         self.game = game
         self.position = position
 
-        self.connector = Connector(self)
-        self.connections: List[Connection] = []
+        offset = Vector2(CONNECTOR_RADIUS + NODE_RADIUS + CONNECTOR_OFFSET, 0)
+        self.connector_position = position + (offset if self.is_input() else -offset)
 
     def is_input(self):
         return self.type == INPUT
 
-    def has_connections(self):
-        return len(self.connections) != 0
-
-    def create_connection(self):
-        if (
-            self.has_connections()
-            and (last_connection := self.connections[-1])
-            and not last_connection.connected
-        ):
-            return
-
-        self.connections.append(Connection(self))
-
-    def update(self, input: Input):
-        for connection in self.connections:
-            connection.update(input)
-
-        self.connector.update(input)
-
-        if input.just_pressed(K_BACKSPACE) and self.has_connections():
-
-            if (
-                current_connection := self.connections[-1]
-            ) and not current_connection.connected:
-                connection.destroy()
-
-        return False
+    def update(self, _input):
+        pass
 
     def render(self, screen: pygame.Surface):
-        for connection in self.connections:
-            connection.render(screen)
+        pygame.draw.circle(
+            screen, CONNECTOR_COLOR, self.connector_position, CONNECTOR_RADIUS
+        )
 
-        self.connector.render(screen)
+        pygame.draw.line(
+            screen,
+            CONNECTOR_COLOR,
+            self.position,
+            self.connector_position,
+            CONNECTOR_WIDTH,
+        )
 
         pygame.draw.circle(
             screen,
@@ -68,6 +48,8 @@ class InputNode(Node):
     def __init__(self, game, position: Vector2) -> None:
         super().__init__(INPUT, game, position)
 
+        self.connector = NodeConnector(self, game)
+
     def clicked(self, input: Input) -> bool:
         if input.just_pressed(MouseButton.LEFT):
             mouse_position = input.mouse_position()
@@ -78,12 +60,23 @@ class InputNode(Node):
         return False
 
     def update(self, input: Input):
-        super().update(input)
+        self.connector.update(input)
 
         if self.clicked(input):
             self.enabled = not self.enabled
+
+    def render(self, screen: Surface):
+        self.connector.render(screen)
+
+        super().render(screen)
 
 
 class OutputNode(Node):
     def __init__(self, game, position: Vector2) -> None:
         super().__init__(OUTPUT, game, position)
+
+        self.connection = None
+
+    def update(self, input):
+        if connection := self.connection:
+            self.enabled = connection.connector.pin.enabled
