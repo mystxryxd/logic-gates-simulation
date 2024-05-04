@@ -4,7 +4,6 @@ import pygame
 
 pygame.init()
 pygame.font.init()
-pygame.display.init()
 
 GAME_TITLE = "Logic Gates"
 

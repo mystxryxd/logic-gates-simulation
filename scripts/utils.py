@@ -12,3 +12,7 @@ def point_in_rectangle(point: Vector2, rect: Rect):
         and point.y >= rect.top
         and point.y <= rect.bottom
     )
+
+
+def is_pin_on(pin):
+    return (connection := pin.connection) and connection.source.enabled

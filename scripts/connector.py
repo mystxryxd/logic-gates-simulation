@@ -33,6 +33,11 @@ class Connector:
 
         self.connections.append(Connection(self.game, self))
 
+    def destroy_connection(self, connection: Connection):
+        for index, conn in enumerate(self.connections):
+            if conn == connection:
+                self.connections.pop(index)
+
     def clicked(self, input: Input) -> bool:
         if input.just_pressed(MouseButton.LEFT):
             mouse_position = input.mouse_position()

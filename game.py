@@ -1,7 +1,7 @@
 from scripts.constants import *
 from scripts.input import Input
 from scripts.node import InputNode, OutputNode
-from scripts.gates import And
+from scripts.gates import And, Not
 import pygame
 import sys
 
@@ -21,8 +21,10 @@ class Game:
 
     def create_gates(self):
         center = SCREEN_SIZE / 2
+        offset = Vector2(0, GATE_WIDTH + 5)
 
-        self.gates.append(And(self, center))
+        self.gates.append(Not(self, center + offset))
+        self.gates.append(And(self, center - offset))
 
     def create_input_nodes(self):
         center = SCREEN_SIZE / 2
@@ -53,7 +55,7 @@ class Game:
         for gate in self.gates:
             gate.render(self.screen)
 
-        pygame.display.flip()
+        pygame.display.update()
 
     def quit(self):
         self.is_running = False
