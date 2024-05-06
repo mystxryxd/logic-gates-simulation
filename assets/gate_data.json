@@ -19,5 +19,58 @@
             [1, 0, 1],
             [1, 1, 1]
         ]
+    },
+
+    "NOT": {
+        "input_ports": 1,
+        "output_ports": 1,
+        "cases": [
+            [0, 1],
+            [1, 0]
+        ]
+    },
+
+    "XOR": {
+        "input_ports": 2,
+        "output_ports": 1,
+        "cases": [
+            [0, 0, 0],
+            [0, 1, 1],
+            [1, 0, 1],
+            [1, 1, 0]
+        ]
+    },
+
+    "NAND": {
+        "input_ports": 2,
+        "output_ports": 1,
+        "cases": [
+            [0, 0, 1],
+            [0, 1, 1],
+            [1, 0, 1],
+            [1, 1, 0]
+        ]
+    },
+
+    "NOR": {
+        "input_ports": 2,
+        "output_ports": 1,
+        "cases": [
+            [0, 0, 1],
+            [0, 1, 0],
+            [1, 0, 0],
+            [1, 1, 0]
+        ]
+    },
+
+    "XNOR": {
+        "input_ports": 2,
+        "output_ports": 1,
+        "cases": [
+            [0, 0, 1],
+            [0, 1, 0],
+            [1, 0, 0],
+            [1, 1, 1]
+        ]
     }
 }
