@@ -15,4 +15,4 @@ def point_in_rectangle(point: Vector2, rect: Rect):
 
 
 def is_pin_on(pin):
-    return (connection := pin.connection) and connection.source.enabled
+    return (connection := pin.connection) and connection.source.enabled or False

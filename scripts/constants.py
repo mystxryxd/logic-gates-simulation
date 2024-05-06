@@ -1,6 +1,7 @@
 from pygame import Vector2, Color, Surface, Rect
 from pygame.constants import *
 import pygame
+import json
 
 pygame.init()
 pygame.font.init()
@@ -23,6 +24,7 @@ CONNECTOR_WIDTH = 3
 CONNECTOR_COLOR = Color(4, 4, 4)
 
 PORT_COLOR = Color(4, 4, 4)
+PORT_OFFSET = 3
 PORT_RADIUS = 5
 
 GATE_LENGTH = 70
@@ -33,3 +35,6 @@ INPUT = "INPUT"
 OUTPUT = "OUTPUT"
 
 JETBRAINS_MONO = pygame.font.SysFont("Helvetica", 25)
+
+with open("assets/gate_data.json") as data:
+    GATE_DATA = json.load(data)

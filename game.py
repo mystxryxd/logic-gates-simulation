@@ -1,7 +1,7 @@
 from scripts.constants import *
 from scripts.input import Input
 from scripts.node import InputNode, OutputNode
-from scripts.gates import And, Not
+from scripts.gates import CustomGate
 import pygame
 import sys
 
@@ -23,8 +23,7 @@ class Game:
         center = SCREEN_SIZE / 2
         offset = Vector2(0, GATE_WIDTH + 5)
 
-        self.gates.append(Not(self, center + offset))
-        self.gates.append(And(self, center - offset))
+        self.gates.append(CustomGate("OR", self, center))
 
     def create_input_nodes(self):
         center = SCREEN_SIZE / 2
